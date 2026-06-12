@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import API from "../utils/Api";
-import { useGlobalContext } from "../../GlobalContext";
+
+
+import { axiosInstance } from "../utils/axios";
+import { useAppContext } from "../context/AppContext";
 
 const ResetPassword = () => {
-  const { token } = useParams(); // comes from /reset-password/:token
+  const { token } = useParams();
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
-  const { isPasswordHidden, togglePassword } = useGlobalContext();
+  const { isPasswordHidden, togglePassword } = useAppContext();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,12 +26,12 @@ const ResetPassword = () => {
     }
 
     try {
-      const res = await API.post(`/api/users/reset-password`, {
+      const res = await axiosInstance.post(`/users/reset-password`, {
         resetToken: token,
         newPassword: password,
       });
       setMessage(res.data.message);
-      setTimeout(() => navigate("/signup"), 2000);
+      setTimeout(() => navigate("/signup?mode=login"), 2000);
     } catch (error) {
       setMessage(error.response?.data?.message || "Something went wrong");
     }
@@ -80,7 +82,7 @@ const ResetPassword = () => {
         </div>
         <button
           type="submit"
-          className="bg-green-600 text-white px-4 py-2 w-full"
+          className="bg-green-600 text-white px-4 py-2 w-full cursor-pointer"
         >
           Reset Password
         </button>

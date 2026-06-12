@@ -1,11 +1,13 @@
-import { useParams } from "react-router-dom";
-import { useGlobalContext } from "../../GlobalContext";
-import Container from "../Container";
 import { useMemo, } from "react";
+import { useParams } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+
+import Container from "../layout/Container";
 import tick from "../assets/tick.jpg";
 
+
 const TrackOrderPage = () => {
-  const { cartItems } = useGlobalContext();
+  const { cartItems } = useAppContext();
   const { _id: productId } = useParams();
 
   const order = cartItems.find((item) => item._id === productId);

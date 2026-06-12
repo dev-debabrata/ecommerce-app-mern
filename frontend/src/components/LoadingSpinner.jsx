@@ -1,12 +1,12 @@
-import { useGlobalContext } from "../../GlobalContext";
-import { cn } from "../utils/cn"; // adjust path if needed
+import { useAppContext } from "../context/AppContext";
+import { cn } from "../utils/cn";
 
 const LoadingSpinner = ({
   text = "Fetching products",
   size = "medium",
   className = "",
 }) => {
-  const { loading } = useGlobalContext();
+  const { loading } = useAppContext();
 
   const sizeClasses = {
     small: "w-6 brightness-35 invert-100",

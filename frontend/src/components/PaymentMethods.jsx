@@ -1,7 +1,9 @@
-import stripeLogo from "../assets/stripe_logo.png";
-import razorpay from "../assets/razorpay_logo.png";
 import { Link } from "react-router-dom";
 import Button from "./Button";
+
+import stripeLogo from "../assets/stripe_logo.png";
+import razorpay from "../assets/razorpay_logo.png";
+
 
 const PaymentMethods = () => {
   return (

@@ -1,92 +1,13 @@
-import { useGlobalContext } from "../../GlobalContext";
-import { shippingFee } from "../components/constants";
-import Title from "../components/Title";
-import Container from "../Container";
-import PaymentMethods from "../components/PaymentMethods";
-import Input from "../components/Input";
 import { useState } from "react";
+import { useAppContext } from "../context/AppContext";
 import { cn } from "../utils/cn";
+import { shippingFee } from "../components/constants";
 
-// interface DeliveryField {
-//   placeholder: string;
-//   fieldName: keyof DeliveryData;
-//   isFullWidth: boolean;
-//   isRequired?: boolean;
-// }
-// interface DeliveryData {
-//   firstName: string;
-//   lastName: string;
-//   emailAddress: string;
-//   street: string;
-//   city: string;
-//   state: string;
-//   zipCode: string;
-//   country: string;
-//   mobile: string;
-// }
-// const deliveryFields: DeliveryField[] = [
-//   {
-//     placeholder: "First Name",
-//     fieldName: "firstName",
-//     isFullWidth: false,
-//     isRequired: true,
-//   },
-//   {
-//     placeholder: "Last Name",
-//     fieldName: "lastName",
-//     isFullWidth: false,
-//   },
-//   {
-//     placeholder: "Email Address",
-//     fieldName: "emailAddress",
-//     isFullWidth: true,
-//   },
-//   {
-//     placeholder: "Street",
-//     fieldName: "street",
-//     isFullWidth: true,
-//   },
-//   {
-//     placeholder: "City",
-//     fieldName: "city",
-//     isFullWidth: false,
-//   },
-//   {
-//     placeholder: "State",
-//     fieldName: "state",
-//     isFullWidth: false,
-//   },
-//   {
-//     placeholder: "Zip Code",
-//     fieldName: "zipCode",
-//     isFullWidth: false,
-//   },
-//   {
-//     placeholder: "Country",
-//     fieldName: "country",
-//     isFullWidth: false,
-//   },
-//   {
-//     placeholder: "Mobile",
-//     fieldName: "mobile",
-//     isFullWidth: true,
-//   },
-// ];
+import Container from "../layout/Container";
+import Title from "../components/Title";
+import Input from "../components/Input";
+import PaymentMethods from "../components/PaymentMethods";
 
-// const Checkout = () => {
-//   const { subTotal } = useGlobalContext();
-
-//   const [formData, setFormData] = useState<DeliveryData>({
-//     firstName: "",
-//     lastName: "",
-//     emailAddress: "",
-//     street: "",
-//     city: "",
-//     state: "",
-//     zipCode: "",
-//     country: "",
-//     mobile: "",
-//   });
 
 const deliveryFields = [
   {
@@ -138,7 +59,7 @@ const deliveryFields = [
 ];
 
 const Checkout = () => {
-  const { subTotal } = useGlobalContext();
+  const { subTotal } = useAppContext();
 
   const [formData, setFormData] = useState({
     firstName: "",

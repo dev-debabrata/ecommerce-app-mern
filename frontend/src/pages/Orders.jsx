@@ -1,11 +1,13 @@
-import Container from "../Container";
-import { useGlobalContext } from "../../GlobalContext";
-import Title from "../components/Title";
 import { Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+
+import Container from "../layout/Container";
+import Title from "../components/Title";
 import Button from "../components/Button";
 
+
 const Orders = () => {
-  const { cartItems } = useGlobalContext();
+  const { cartItems } = useAppContext();
 
   return (
     <Container>

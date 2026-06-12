@@ -1,7 +1,8 @@
-import { useGlobalContext } from "../GlobalContext";
+import { useAppContext } from "../context/AppContext";
+
 
 const Container = ({ children, className = "" }) => {
-  const { isUserDetailOpen, setIsUserDetailOpen } = useGlobalContext();
+  const { isUserDetailOpen, setIsUserDetailOpen } = useAppContext();
 
   return (
     <div

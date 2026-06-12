@@ -1,20 +1,16 @@
 import { useState } from "react";
-import Container from "../Container";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import API from "../utils/Api";
-import { Link, useNavigate } from "react-router-dom";
-import { useGlobalContext } from "../../GlobalContext";
+import { axiosInstance } from "../utils/axios";
+import { useAppContext } from "../context/AppContext";
+
+import Container from "../layout/Container";
 import Button from "../components/Button";
 import Input from "../components/Input";
 
-// interface FormData {
-//   name: string;
-//   email: string;
-//   password: string;
-// }
 
 const SignUpPage = () => {
-  const { togglePassword, isPasswordHidden } = useGlobalContext();
+  const { togglePassword, isPasswordHidden, setUser } = useAppContext();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,7 +18,12 @@ const SignUpPage = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const [isLoginOpen, setisLoginOpen] = useState(false);
+  const [searchParams] = useSearchParams();
+
+  const [isLoginOpen, setisLoginOpen] = useState(
+    searchParams.get("mode") === "login",
+  );
+  // const [isLoginOpen, setisLoginOpen] = useState(false);
 
   const inputChange = (e) => {
     const { name, value } = e.target;
@@ -35,27 +36,88 @@ const SignUpPage = () => {
   const submitForm = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     if (!formData.name || !formData.email || !formData.password) {
       toast.warning("Please fill all fields");
       setIsLoading(false);
       return;
     }
 
-    try {
-      const response = await API.post("/api/users/signup", formData);
-      toast.success(response.data.message);
-      console.log(response.data);
-    } catch (error) {
-      toast.error(error?.response?.data?.message || "Signup failed");
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    if (!gmailRegex.test(formData.email)) {
+      toast.warning("Only Gmail addresses are allowed");
+      setIsLoading(false);
+      return;
     }
 
-    setFormData({
-      name: "",
-      email: "",
-      password: "",
-    });
-    setIsLoading(false);
+    try {
+      const { data } = await axiosInstance.post("/users/signup", formData);
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+      setUser(data.user);
+
+      toast.success(data.message);
+      navigate("/");
+    } catch (error) {
+      toast.error(error?.response?.data?.message || "Signup failed");
+    } finally {
+      setFormData({ name: "", email: "", password: "" });
+      setIsLoading(false);
+    }
   };
+
+  // const submitForm = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   if (!formData.name || !formData.email || !formData.password) {
+  //     toast.warning("Please fill all fields");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     const { data } = await axiosInstance.post("/users/signup", formData);
+
+  //     localStorage.setItem("token", data.token);
+  //     localStorage.setItem("user", JSON.stringify(data.user));
+  //     setUser(data.user);
+
+  //     toast.success(data.message);
+
+  //     navigate("/"); // redirect to dashboard/home
+  //   } catch (error) {
+  //     toast.error(error?.response?.data?.message || "Signup failed");
+  //   } finally {
+  //     setFormData({ name: "", email: "", password: "" });
+  //     setIsLoading(false);
+  //   }
+  // };
+
+  // const submitForm = async (e) => {
+  //   e.preventDefault();
+  //   setIsLoading(true);
+  //   if (!formData.name || !formData.email || !formData.password) {
+  //     toast.warning("Please fill all fields");
+  //     setIsLoading(false);
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await axiosInstance.post("/users/signup", formData);
+  //     toast.success(response.data.message);
+  //     console.log(response.data);
+  //   } catch (error) {
+  //     toast.error(error?.response?.data?.message || "Signup failed");
+  //   }
+
+  //   setFormData({
+  //     name: "",
+  //     email: "",
+  //     password: "",
+  //   });
+  //   setIsLoading(false);
+  // };
 
   const submitLoginForm = async (e) => {
     e.preventDefault();
@@ -67,9 +129,13 @@ const SignUpPage = () => {
     }
     setIsLoading(true);
     try {
-      const { data } = await API.post("/api/users/login", { email, password });
+      const { data } = await axiosInstance.post("/users/login", {
+        email,
+        password,
+      });
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
+      setUser(data.user);
       toast.success("Login successful!!");
 
       if (data) {
@@ -78,7 +144,6 @@ const SignUpPage = () => {
     } catch (error) {
       console.error("Login error", error);
       toast.error(error?.response?.data?.message || "Login failed");
-
     } finally {
       setIsLoading(false);
     }
@@ -98,7 +163,7 @@ const SignUpPage = () => {
             <p className="w-8 sm:w-12 h-[1px] sm:h-[2px] bg-gray-700"></p>
           </div>
           {placeholders.map((placeholder, index) => (
-            <div className="w-full relative">
+            <div key={fieldNames[index]} className="w-full relative">
               <Input
                 htmlType={
                   placeholder === "password" && isPasswordHidden
@@ -134,7 +199,7 @@ const SignUpPage = () => {
                 Forgot your password?
               </p>
             </Link>
-            <p className="cursor-pointer" onClick={() => setisLoginOpen(true)}>
+            <p className="cursor-pointer  hover:text-blue-600" onClick={() => setisLoginOpen(true)}>
               Login here
             </p>
           </div>
@@ -159,15 +224,20 @@ const SignUpPage = () => {
           </div>
 
           {placeholders.slice(1).map((placeholder, index) => (
-            <div className="w-full relative">
+            <div key={fieldNames[index + 1]} className="w-full relative">
               <Input
-                htmlType="text"
+                htmlType={
+                  placeholder === "password" && isPasswordHidden
+                    ? "password"
+                    : "text"
+                }
                 size="medium"
                 placeholder={placeholder}
                 name={fieldNames[index + 1]}
                 onChange={inputChange}
                 value={formData[fieldNames[index + 1]] || ""}
               />
+
               {placeholder === "password" && (
                 <div>
                   <img
@@ -188,7 +258,7 @@ const SignUpPage = () => {
             <p className="cursor-pointer hover:text-blue-600">
               <Link to="/forgot-password">Forgot your password?</Link>
             </p>
-            <p className="cursor-pointer" onClick={() => setisLoginOpen(false)}>
+            <p className="cursor-pointer  hover:text-blue-600" onClick={() => setisLoginOpen(false)}>
               Create a new account
             </p>
           </div>
@@ -203,8 +273,6 @@ const SignUpPage = () => {
           </Button>
         </form>
       )}
-
-
     </Container>
   );
 };

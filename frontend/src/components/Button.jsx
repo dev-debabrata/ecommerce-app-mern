@@ -20,7 +20,8 @@ const Button = ({
   const buttonSizes = {
     tiny: "px-4 py-2 border rounded-md bg-gray-100 text-black",
     small: "flex items-center gap-2",
-    medium: "py-3 text-white bg-black active:bg-gray-700 px-8 w-[9.7rem] text-sm",
+    medium:
+      "py-3 text-white bg-black active:bg-gray-700 px-8 w-[9.7rem] text-sm",
     large: "rounded-3xl mt-4 px-8 py-3 font-light",
   };
   const disabledStyles = disabled
@@ -42,7 +43,11 @@ const Button = ({
     >
       {children}
       {loading && (
-        <img src="/images/loading-icon.svg" className="w-6" alt="loading-icon" />
+        <img
+          src="/images/loading-icon.svg"
+          className="w-6"
+          alt="loading-icon"
+        />
       )}
     </button>
   );
