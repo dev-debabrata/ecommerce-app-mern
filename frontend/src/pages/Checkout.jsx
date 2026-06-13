@@ -10,12 +10,13 @@ import PaymentMethods from "../components/PaymentMethods";
 import { toast } from "react-toastify";
 import { deliveryFields } from "../data/checkoutData";
 import { useNavigate } from "react-router-dom";
+import { createRazorpayOrder } from "../services/paymentService";
 
 
 
 const Checkout = () => {
   const { subTotal } = useAppContext();
-
+  const [paymentMethod, setPaymentMethod] = useState("cod");
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -31,31 +32,71 @@ const Checkout = () => {
   });
 
 
-  const handlePlaceOrder = (e) => {
-    e.preventDefault();
-
-    toast.success("Order placed successfully");
-    navigate("/orders");
-  };
-
   // const handlePlaceOrder = (e) => {
   //   e.preventDefault();
 
-  //   const emptyField = deliveryFields.find(
-  //     (field) => field.isRequired && !formData[field.fieldName].trim()
-  //   );
-
-  //   if (emptyField) {
-  //     toast.error(`${emptyField.placeholder} is required`);
-  //     return;
-  //   }
-
   //   toast.success("Order placed successfully");
-
-  //   setTimeout(() => {
-  //     navigate("/orders");
-  //   }, 1000);
+  //   navigate("/orders");
   // };
+
+
+
+
+  const handleRazorpayPayment = async () => {
+    try {
+      const totalAmount = subTotal + shippingFee;
+
+      const data = await createRazorpayOrder(totalAmount);
+
+      const options = {
+        key: data.key,
+        amount: data.order.amount,
+        currency: data.order.currency,
+        name: "Fashion Store",
+        description: "Order Payment",
+        order_id: data.order.id,
+
+        handler: function () {
+          toast.success("Payment Successful");
+          navigate("/orders");
+        },
+
+        prefill: {
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.emailAddress,
+          contact: formData.mobile,
+        },
+
+        theme: {
+          color: "#000000",
+        },
+      };
+
+      const razorpay = new window.Razorpay(options);
+      razorpay.open();
+    } catch (error) {
+      toast.error("Payment Failed");
+    }
+  };
+
+  const handlePlaceOrder = async (e) => {
+    e.preventDefault();
+
+    if (paymentMethod === "cod") {
+      toast.success("Order placed successfully");
+      navigate("/orders");
+      return;
+    }
+
+    if (paymentMethod === "razorpay") {
+      await handleRazorpayPayment();
+      return;
+    }
+
+    if (paymentMethod === "stripe") {
+      toast.info("Stripe payment is not added yet");
+    }
+  };
 
 
 
@@ -123,7 +164,10 @@ const Checkout = () => {
                 <Title text1="PAYMENT" text2="Methods" />
               </div>
 
-              <PaymentMethods />
+              <PaymentMethods
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+              />
             </div>
           </div>
         </div>
