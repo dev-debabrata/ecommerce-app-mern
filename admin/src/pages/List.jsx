@@ -1,13 +1,15 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { backendUrl, currency } from "../App";
+import axios from "axios";
 import { toast } from "react-toastify";
+
+import { backendUrl, currency } from "../App";
+import { useCallback } from "react";
 
 const List = ({ token }) => {
   const [list, setList] = useState([]);
 
-  const fetchList = async () => {
+  const fetchList = useCallback(async () => {
     try {
       const { data } = await axios.get(`${backendUrl}/api/products`, {
         headers: {
@@ -22,7 +24,24 @@ const List = ({ token }) => {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to fetch products");
     }
-  };
+  }, [token]);
+
+  // const fetchList = async () => {
+  //   try {
+  //     const { data } = await axios.get(`${backendUrl}/api/products`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+
+  //     console.log("Products from API:", data.products || data);
+
+  //     setList(data.products || data || []);
+  //   } catch (error) {
+  //     console.error(error);
+  //     toast.error(error.response?.data?.message || "Failed to fetch products");
+  //   }
+  // };
 
   const removeProduct = async (id, name) => {
     const confirmed = window.confirm(
@@ -37,8 +56,8 @@ const List = ({ token }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-
       toast.success(data.message || "Product removed");
+
       fetchList();
     } catch (error) {
       console.error(error);
@@ -70,7 +89,7 @@ const List = ({ token }) => {
 
   useEffect(() => {
     fetchList();
-  }, []);
+  }, [fetchList]);
 
   return (
     <main className="flex flex-col gap-2">

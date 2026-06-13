@@ -5,8 +5,8 @@ import { useAppContext } from "../context/AppContext";
 import "../index.css";
 import Container from "../layout/Container";
 import Title from "../components/Title";
-import LoadingSpinner from "../components/LoadingSpinner";
-
+// import LoadingSpinner from "../components/LoadingSpinner";
+import Loading from "../components/Loading";
 
 const Home = () => {
   const { products, setIsUserDetailOpen, loading } = useAppContext();
@@ -24,7 +24,7 @@ const Home = () => {
   const renderProducts = (items) => {
     if (!Array.isArray(items) || items.length === 0) {
       return (
-        <p className="col-span-full text-center text-gray-500">
+        <p className="col-span-full py-10 text-center text-gray-500">
           No products found
         </p>
       );
@@ -32,7 +32,7 @@ const Home = () => {
 
     return items.slice(0, 10).map((product) => (
       <Link
-        to={`/product/${product._id}`}
+        to={`/products/${product._id}`}
         key={product._id}
         className="flex overflow-hidden flex-col justify-between h-full text-gray-700 cursor-pointer"
       >
@@ -100,8 +100,11 @@ const Home = () => {
       </div>
 
       {loading ? (
-        <LoadingSpinner />
+        <div className="flex-1">
+          <Loading text="Loading product..." />
+        </div>
       ) : (
+        // <LoadingSpinner />
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
           {renderProducts(products)}
         </div>
@@ -118,7 +121,9 @@ const Home = () => {
         </div>
 
         {loading ? (
-          <LoadingSpinner />
+          <div className="flex-1">
+            <Loading text="Loading product..." />
+          </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 gap-y-6">
             {renderProducts(products)}

@@ -5,34 +5,23 @@ import { useAppContext } from "../context/AppContext";
 import Container from "../layout/Container";
 import Title from "../components/Title";
 import Button from "../components/Button";
-
+import { useEffect, useState } from "react";
+import Loading from "../components/Loading";
 
 const WishlistPage = () => {
   const { wishlistItems, setWishlistItems } = useAppContext();
-  //   const { wishlistItems, setWishlistItems, cartItems, setCartItems } =
-  //     useGlobalContext();
 
-  //   const addToCart = (item) => {
-  //     const exists = cartItems.find((cartItem) => cartItem._id === item._id);
+  const [loading, setLoading] = useState(true);
 
-  //     if (exists) {
-  //       toast.info("Already added to cart");
+  useEffect(() => {
+    setLoading(true);
 
-  //       setWishlistItems((prev) =>
-  //         prev.filter((wishlistItem) => wishlistItem._id !== item._id),
-  //       );
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 300);
 
-  //       return;
-  //     }
-
-  //     setCartItems((prev) => [...prev, { ...item, quantity: 1 }]);
-
-  //     setWishlistItems((prev) =>
-  //       prev.filter((wishlistItem) => wishlistItem._id !== item._id),
-  //     );
-
-  //     toast.success("Added to cart");
-  //   };
+    return () => clearTimeout(timer);
+  }, [wishlistItems]);
 
   const removeFromWishlist = (id) => {
     setWishlistItems(wishlistItems.filter((item) => item._id !== id));
@@ -47,15 +36,27 @@ const WishlistPage = () => {
           <Title text1="MY" text2="WISHLIST" />
         </div>
 
-        {wishlistItems?.length === 0 ? (
-          <p className="text-gray-500">Your wishlist is empty.</p>
+        {loading ? (
+          <div className=" flex-1">
+            <Loading text="Loading wishlist..." />
+          </div>
+        ) : wishlistItems?.length === 0 ? (
+          <div className="flex min-h-[36vh] items-center justify-center">
+            <p className="text-lg text-gray-500">Your wishlist is empty</p>
+          </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {wishlistItems.map((item) => (
-              <div key={item._id} className="border p-3 rounded-lg ">
-                <Link to={`/product/${item._id}`}>
+              <div key={item._id} className="border p-3 rounded-lg">
+                <Link to={`/products/${item._id}`}>
                   <img
-                    src={item.images?.[0] || item.image1 || item.image}
+                    src={
+                      Array.isArray(item.image)
+                        ? item.image[0]
+                        : item.images?.[0] ||
+                          item.image1 ||
+                          "/images/placeholder.png"
+                    }
                     alt={item.name}
                     className="w-full h-72 object-cover"
                   />
@@ -63,18 +64,11 @@ const WishlistPage = () => {
                   <h3 className="mt-2 font-medium">{item.name}</h3>
 
                   <p className="font-semibold">
-                    ${Number(item.price).toFixed(2)}
+                    ${Number(item.price || 0).toFixed(2)}
                   </p>
                 </Link>
 
-                <div className="flex gap-2 mt-3">
-                  {/* <button
-                    onClick={() => addToCart(item)}
-                    className="flex-1 bg-black text-white py-2 text-sm rounded cursor-pointer"
-                  >
-                    Add to Cart
-                  </button> */}
-
+                <div className="flex justify-end gap-2 mt-3">
                   <Button
                     onClick={() => removeFromWishlist(item._id)}
                     className="px-3 bg-red-500 text-white rounded cursor-pointer"
@@ -86,6 +80,45 @@ const WishlistPage = () => {
             ))}
           </div>
         )}
+
+        {/* {wishlistItems?.length === 0 ? (
+          <p className="text-gray-500">Your wishlist is empty.</p>
+        ) : (
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {wishlistItems.map((item) => (
+              <div key={item._id} className="border p-3 rounded-lg">
+                <Link to={`/products/${item._id}`}>
+                  <img
+                    src={
+                      Array.isArray(item.image)
+                        ? item.image[0]
+                        : item.images?.[0] ||
+                          item.image1 ||
+                          "/images/placeholder.png"
+                    }
+                    alt={item.name}
+                    className="w-full h-72 object-cover"
+                  />
+
+                  <h3 className="mt-2 font-medium">{item.name}</h3>
+
+                  <p className="font-semibold">
+                    ${Number(item.price || 0).toFixed(2)}
+                  </p>
+                </Link>
+
+                <div className="flex justify-end gap-2 mt-3">
+                  <Button
+                    onClick={() => removeFromWishlist(item._id)}
+                    className="px-3 bg-red-500 text-white rounded cursor-pointer"
+                  >
+                    Delete
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )} */}
       </div>
     </Container>
   );

@@ -73,12 +73,20 @@ export const AppProvider = ({ children }) => {
     setIsPasswordHidden((prev) => !prev);
   };
 
+
   const addToWishlist = (product) => {
-    const exists = wishlistItems.some((item) => item._id === product._id);
+    if (!user) {
+      toast.warning("Please login first");
+      return false;
+    }
+
+    const exists = wishlistItems.some(
+      (item) => item._id === product._id
+    );
 
     if (exists) {
       setWishlistItems((prev) =>
-        prev.filter((item) => item._id !== product._id),
+        prev.filter((item) => item._id !== product._id)
       );
 
       toast.info("Removed from wishlist");
@@ -87,7 +95,33 @@ export const AppProvider = ({ children }) => {
 
       toast.success("Added to wishlist");
     }
+
+    return true;
   };
+
+
+  // const addToWishlist = (product) => {
+  //   if (!user) {
+  //     toast.warning("Please login first");
+  //     return;
+  //   }
+
+  //   const exists = wishlistItems.some(
+  //     (item) => item._id === product._id
+  //   );
+
+  //   if (exists) {
+  //     setWishlistItems((prev) =>
+  //       prev.filter((item) => item._id !== product._id)
+  //     );
+
+  //     toast.info("Removed from wishlist");
+  //   } else {
+  //     setWishlistItems((prev) => [...prev, product]);
+
+  //     toast.success("Added to wishlist");
+  //   }
+  // };
 
   // const addToWishlist = (product) => {
   //   const exists = wishlistItems.some((item) => item._id === product._id);
@@ -96,10 +130,16 @@ export const AppProvider = ({ children }) => {
   //     setWishlistItems((prev) =>
   //       prev.filter((item) => item._id !== product._id),
   //     );
+
+  //     toast.info("Removed from wishlist");
   //   } else {
   //     setWishlistItems((prev) => [...prev, product]);
+
+  //     toast.success("Added to wishlist");
   //   }
   // };
+
+
 
   const isInWishlist = (productId) => {
     return wishlistItems.some((item) => item._id === productId);
