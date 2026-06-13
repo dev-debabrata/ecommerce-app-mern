@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { assets } from "../assets/assets";
 import axios from "axios";
 import { backendUrl } from "../App";
@@ -15,7 +15,7 @@ const Add = ({ token }) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubcategory] = useState("Topwear");
-  const [bestseller, setBestseller] = useState(false);
+  const [bestSeller, setBestSeller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
   const onSubmitHandler = async (e) => {
@@ -34,7 +34,7 @@ const Add = ({ token }) => {
       formData.append("price", price);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
-      formData.append("bestseller", bestseller);
+      formData.append("bestSeller", bestSeller);
       formData.append("sizes", JSON.stringify(sizes));
 
       const { data } = await axios.post(
@@ -54,7 +54,7 @@ const Add = ({ token }) => {
       setPrice("");
       setCategory("Men");
       setSubcategory("Topwear");
-      setBestseller(false);
+      setBestSeller(false);
       setSizes([]);
       setImage1(false);
       setImage2(false);
@@ -323,8 +323,8 @@ const Add = ({ token }) => {
             name="bestseller"
             type="checkbox"
             id="bestseller"
-            checked={bestseller}
-            onChange={() => setBestseller((prev) => !prev)}
+            checked={bestSeller}
+            onChange={() => setBestSeller((prev) => !prev)}
           />
           <label htmlFor="bestseller">Add to bestseller</label>
         </div>

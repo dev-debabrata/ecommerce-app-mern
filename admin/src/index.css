@@ -1,6 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100&family=Outfit:wght@100..900&display=swap");
 @import "tailwindcss";
 
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden;
+}
+
+* {
+  font-family: Outfit;
+}
+
 select,
 input,
 textarea {
@@ -11,8 +22,4 @@ textarea {
 .active {
   background-color: #ffebf5;
   border-color: brown;
-}
-
-* {
-  font-family: Outfit;
 }

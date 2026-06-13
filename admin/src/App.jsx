@@ -35,17 +35,14 @@ const App = () => {
           <Navbar setToken={setToken} />
           <hr />
 
-          <div className="flex w-full gap-10">
+          <div className="flex w-full gap-10 h-[calc(100vh-73px)] overflow-hidden">
             <Sidebar />
 
-            <div className="py-5 w-full">
+            <div className="py-5 w-full overflow-y-auto pr-4">
               <Routes>
                 <Route path="/" element={<Navigate to="/list" replace />} />
                 <Route path="/add" element={<Add token={token} />} />
-                <Route
-                  path="/edit/:id"
-                  element={<EditProduct token={token} />}
-                />
+                <Route path="/edit/:id" element={<EditProduct token={token} />} />
                 <Route path="/list" element={<List token={token} />} />
                 <Route path="/orders" element={<Orders token={token} />} />
                 <Route path="*" element={<Navigate to="/list" replace />} />
@@ -53,6 +50,28 @@ const App = () => {
             </div>
           </div>
         </>
+        // <>
+        //   <Navbar setToken={setToken} />
+        //   <hr />
+
+        //   <div className="flex w-full gap-10">
+        //     <Sidebar />
+
+        //     <div className="py-5 w-full">
+        //       <Routes>
+        //         <Route path="/" element={<Navigate to="/list" replace />} />
+        //         <Route path="/add" element={<Add token={token} />} />
+        //         <Route
+        //           path="/edit/:id"
+        //           element={<EditProduct token={token} />}
+        //         />
+        //         <Route path="/list" element={<List token={token} />} />
+        //         <Route path="/orders" element={<Orders token={token} />} />
+        //         <Route path="*" element={<Navigate to="/list" replace />} />
+        //       </Routes>
+        //     </div>
+        //   </div>
+        // </>
       )}
     </div>
   );

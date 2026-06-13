@@ -15,7 +15,7 @@ const EditProduct = ({ token }) => {
   const [price, setPrice] = useState("");
   const [category, setCategory] = useState("Men");
   const [subCategory, setSubcategory] = useState("Topwear");
-  const [bestSeller, setBestseller] = useState(false);
+  const [bestSeller, setBestSeller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
   const [existingImages, setExistingImages] = useState([]); // URLs from server
@@ -38,7 +38,7 @@ const EditProduct = ({ token }) => {
         setPrice(product.price || "");
         setCategory(product.category || "Men");
         setSubcategory(product.subCategory || "Topwear");
-        setBestseller(!!product.bestSeller);
+        setBestSeller(!!product.bestSeller);
         setSizes(product.sizes || []);
         setExistingImages(product.image || []);
       } catch (error) {
@@ -266,7 +266,7 @@ const EditProduct = ({ token }) => {
             type="checkbox"
             id="bestseller"
             checked={bestSeller}
-            onChange={() => setBestseller((prev) => !prev)}
+            onChange={() => setBestSeller((prev) => !prev)}
           />
           <label htmlFor="bestseller">Add to bestseller</label>
         </div>

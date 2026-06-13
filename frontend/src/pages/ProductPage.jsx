@@ -212,7 +212,7 @@ const ProductPage = () => {
                   <p className="pl-2">122</p>
                 </div>
 
-                <p className="text-3xl font-medium mt-5">${product.price}</p>
+                <p className="text-3xl font-medium mt-5">₹{product.price}</p>
 
                 <div className="flex flex-col gap-4 my-8">
                   <p>Select Size</p>
