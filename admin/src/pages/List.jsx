@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { SquarePen, Trash2 } from 'lucide-react';
 
 import { backendUrl, currency } from "../App";
 import { useCallback } from "react";
@@ -128,7 +129,7 @@ const List = ({ token }) => {
                 className="cursor-pointer text-blue-500 hover:text-blue-700 transition"
                 title="Edit product"
               >
-                ✎
+                <SquarePen />
               </Link>
 
               <button
@@ -137,7 +138,7 @@ const List = ({ token }) => {
                 onClick={() => removeProduct(item._id, item.name)}
                 title="Delete product"
               >
-                ✖
+                <Trash2 />
               </button>
             </div>
           </div>

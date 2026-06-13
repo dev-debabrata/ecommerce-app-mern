@@ -331,7 +331,7 @@ const Add = ({ token }) => {
 
         <button
           type="submit"
-          className="uppercase bg-black text-white px-3 py-3 rounded"
+          className="uppercase bg-gray-900 hover:bg-gray-800 text-white px-8 py-3 rounded-md cursor-pointer"
         >
           Add Product
         </button>
