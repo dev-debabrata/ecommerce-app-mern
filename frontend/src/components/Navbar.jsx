@@ -96,8 +96,16 @@ const Navbar = () => {
   return (
     <Container>
       <div className="flex items-center py-5 justify-between text-sm font-medium uppercase">
-        <Link to="/">
-          <h1 className="text-[30px]">ShopWear</h1>
+        <Link to="/" className="flex items-center gap-2">
+          <img
+            src="/shopwear.png"
+            alt="ShopWear Logo"
+            className="w-8 h-8 object-contain brightness-0"
+          />
+
+          <h1 className="text-[30px] font-semibold">
+            ShopWear
+          </h1>
         </Link>
 
         <ul className="hidden gap-5 text-gray-700 sm:flex">

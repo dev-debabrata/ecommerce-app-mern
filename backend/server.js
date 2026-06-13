@@ -5,8 +5,9 @@ import cors from "cors";
 import { connectDB } from "./config/db.js";
 import userRoutes from "./routes/user.route.js";
 import productRoutes from "./routes/product.route.js";
-import adminRoutes from "./routes/admin.route.js";
 import paymentRoutes from "./routes/payment.route.js";
+import orderRoutes from "./routes/order.route.js";
+import adminRoutes from "./routes/admin.route.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -35,8 +36,9 @@ app.get("/", (req, res) => {
 
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
-app.use("/api/admin", adminRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/orders", orderRoutes);
+app.use("/api/admin", adminRoutes);
 
 const startServer = async () => {
   try {

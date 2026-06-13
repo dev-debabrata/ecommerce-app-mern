@@ -45,13 +45,16 @@ const Footer = () => {
         )}
       <div className="flex flex-col sm:flex-row text-sm my-10 mt-40 gap-14">
         <div>
-          <Link to="/">
-            <h1 className=" text-[30px]">ShopWear</h1>
-            {/* <img
-              src="/images/logo.png"
-              className="w-32 mb-5 cursor-pointer"
-              alt="logo"
-            /> */}
+          <Link to="/" className="flex items-center gap-2 mb-1">
+            <img
+              src="/shopwear.png"
+              alt="ShopWear Logo"
+              className="w-8 h-8 object-contain brightness-0"
+            />
+
+            <h1 className="text-[30px] font-semibold">
+              ShopWear
+            </h1>
           </Link>
           <p className="w-full md:w-2/3 text-gray-600">
             Thank you for shopping with ShopWear! We're dedicated to bringing
