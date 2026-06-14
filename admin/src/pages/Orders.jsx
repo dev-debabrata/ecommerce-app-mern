@@ -3,37 +3,53 @@ import axios from "axios";
 import { backendUrl, currency } from "../App";
 import { assets } from "../assets/assets";
 import { toast } from "react-toastify";
+import { useCallback } from "react";
 
 const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
 
-  const fetchAllOrders = async () => {
-    try {
-      const res = await axios.get(
-        backendUrl + "/api/orders/admin/all",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
 
-      if (res.data.success) {
-        setOrders(res.data.orders);
-      }
+
+  const fetchAllOrders = useCallback(async () => {
+    try {
+      const { data } = await axios.get(`${backendUrl}/api/orders/admin/all`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setOrders(data.orders || []);
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to load orders");
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to fetch orders");
     }
-  };
+  }, [token]);
+
+  // const fetchAllOrders = async () => {
+  //   try {
+  //     const res = await axios.get(
+  //       backendUrl + "/api/orders/admin/all",
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     if (res.data.success) {
+  //       setOrders(res.data.orders);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Failed to load orders");
+  //   }
+  // };
 
   const handleStatus = async (e, orderId) => {
     try {
-      const res = await axios.put(
-        backendUrl + `/api/orders/admin/status/${orderId}`,
-        {
-          orderStatus: e.target.value,
-        },
+      const { data } = await axios.put(
+        `${backendUrl}/api/orders/admin/status/${orderId}`,
+        { orderStatus: e.target.value },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -41,15 +57,39 @@ const Orders = ({ token }) => {
         }
       );
 
-      if (res.data.success) {
-        fetchAllOrders();
+      if (data.success) {
         toast.success("Status updated");
+        fetchAllOrders();
       }
     } catch (error) {
-      console.log(error);
-      toast.error("Failed to update status");
+      console.error(error);
+      toast.error(error.response?.data?.message || "Failed to update status");
     }
   };
+
+  // const handleStatus = async (e, orderId) => {
+  //   try {
+  //     const res = await axios.put(
+  //       backendUrl + `/api/orders/admin/status/${orderId}`,
+  //       {
+  //         orderStatus: e.target.value,
+  //       },
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+
+  //     if (res.data.success) {
+  //       fetchAllOrders();
+  //       toast.success("Status updated");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //     toast.error("Failed to update status");
+  //   }
+  // };
 
   // const handleStatus = async (e, orderId) => {
   //   try {
