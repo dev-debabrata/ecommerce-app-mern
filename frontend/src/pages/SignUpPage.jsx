@@ -10,7 +10,8 @@ import Input from "../components/Input";
 
 
 const SignUpPage = () => {
-  const { togglePassword, isPasswordHidden, setUser } = useAppContext();
+  const { togglePassword, isPasswordHidden, loginUser } = useAppContext();
+  // const { togglePassword, isPasswordHidden, setUser } = useAppContext();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -54,8 +55,11 @@ const SignUpPage = () => {
       const { data } = await axiosInstance.post("/users/signup", formData);
 
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
+      loginUser(data.user);
+
+      // localStorage.setItem("token", data.token);
+      // localStorage.setItem("user", JSON.stringify(data.user));
+      // setUser(data.user);
 
       toast.success(data.message);
       navigate("/");
@@ -133,9 +137,14 @@ const SignUpPage = () => {
         email,
         password,
       });
+
       localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-      setUser(data.user);
+      loginUser(data.user);
+      // localStorage.setItem("token", data.token);
+      // localStorage.setItem("user", JSON.stringify(data.user));
+      // setUser(data.user);
+
+
       toast.success("Login successful!!");
 
       if (data) {

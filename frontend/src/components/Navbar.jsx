@@ -20,6 +20,7 @@ const Navbar = () => {
     cartItems,
     setCartItems,
     wishlistItems,
+    setWishlistItems,
     isUserDetailOpen,
     setIsUserDetailOpen,
     user,
@@ -29,10 +30,10 @@ const Navbar = () => {
   const logoutUser = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    localStorage.removeItem("cartItems");
 
     setUser(null);
     setCartItems([]);
+    setWishlistItems([]);
     setIsUserDetailOpen(false);
 
     toast.success("Logged out successfully!");
