@@ -1,8 +1,6 @@
 import { Product } from "../models/product.model.js";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
 
-
-
 export const createProduct = async (req, res) => {
   try {
     const {
@@ -58,12 +56,6 @@ export const createProduct = async (req, res) => {
   }
 };
 
-
-
-
-
-
-
 export const getProducts = async (req, res) => {
   try {
     const products = await Product.find().sort({ createdAt: -1 });
@@ -76,11 +68,6 @@ export const getProducts = async (req, res) => {
     });
   }
 };
-
-
-
-
-
 
 export const getProductById = async (req, res) => {
   try {
@@ -103,10 +90,6 @@ export const getProductById = async (req, res) => {
     });
   }
 };
-
-
-
-
 
 export const updateProduct = async (req, res) => {
   try {
@@ -170,10 +153,6 @@ export const updateProduct = async (req, res) => {
   }
 };
 
-
-
-
-
 export const updateProductField = async (req, res) => {
   try {
     const product = await Product.findByIdAndUpdate(
@@ -199,11 +178,6 @@ export const updateProductField = async (req, res) => {
     });
   }
 };
-
-
-
-
-
 
 export const deleteProduct = async (req, res) => {
   try {

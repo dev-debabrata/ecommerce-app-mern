@@ -2,10 +2,6 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import Admin from "../models/admin.model.js";
 
-
-
-
-
 export const loginAdmin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -62,11 +58,6 @@ export const loginAdmin = async (req, res) => {
   }
 };
 
-
-
-
-
-
 export const logoutAdmin = async (req, res) => {
   try {
     res.status(200).json({
@@ -80,10 +71,6 @@ export const logoutAdmin = async (req, res) => {
     });
   }
 };
-
-
-
-
 
 // Profile
 export const getAdminProfile = async (req, res) => {

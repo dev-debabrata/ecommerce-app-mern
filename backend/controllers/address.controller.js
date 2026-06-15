@@ -1,8 +1,5 @@
 import Address from "../models/address.model.js";
 
-
-
-
 export const createAddress = async (req, res) => {
     try {
         const address = await Address.create({
@@ -24,10 +21,6 @@ export const createAddress = async (req, res) => {
     }
 };
 
-
-
-
-
 export const getMyAddresses = async (req, res) => {
     try {
         const addresses = await Address.find({ userId: req.user._id }).sort({
@@ -46,10 +39,6 @@ export const getMyAddresses = async (req, res) => {
         });
     }
 };
-
-
-
-
 
 export const updateAddress = async (req, res) => {
     try {
@@ -85,10 +74,6 @@ export const updateAddress = async (req, res) => {
         });
     }
 };
-
-
-
-
 
 export const deleteAddress = async (req, res) => {
     try {
