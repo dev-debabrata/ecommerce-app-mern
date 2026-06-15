@@ -74,86 +74,6 @@ const Navbar = () => {
     };
   }, [setIsUserDetailOpen]);
 
-  // const {
-  //   setIsSearchBarOpen,
-  //   cartItems,
-  //   setCartItems,
-  //   wishlistItems,
-  //   setWishlistItems,
-  //   isUserDetailOpen,
-  //   setIsUserDetailOpen,
-  //   user,
-  //   setUser,
-  // } = useAppContext();
-
-  // const logoutUser = () => {
-  //   localStorage.removeItem("token");
-  //   localStorage.removeItem("user");
-
-  //   setUser(null);
-  //   setCartItems([]);
-  //   setWishlistItems([]);
-  //   setIsUserDetailOpen(false);
-
-  //   toast.success("Logged out successfully!");
-
-  //   setTimeout(() => {
-  //     navigate("/");
-  //   }, 1000);
-  // };
-
-  // // const logoutUser = () => {
-  // //   localStorage.removeItem("token");
-  // //   localStorage.removeItem("user");
-
-  // //   setUser(null);
-  // //   setIsUserDetailOpen(false);
-
-  // //   toast.success("Logged out successfully!");
-
-  // //   setTimeout(() => {
-  // //     navigate("/");
-  // //   }, 1000);
-  // // };
-
-  // const goToProtectedPage = (path) => {
-  //   if (!user) {
-  //     toast.error("Please login first");
-  //     navigate("/signup?mode=login");
-  //     return;
-  //   }
-
-  //   navigate(path);
-  // };
-
-  // // const logoutUser = () => {
-  // //   localStorage.removeItem("token");
-  // //   localStorage.removeItem("user");
-
-  // //   setUser(null);
-  // //   setIsUserDetailOpen(false);
-  // //   navigate("/");
-  // // };
-
-  // const toggleUserMenu = (e) => {
-  //   e.stopPropagation(); // prevent this click from being seen as an "outside click"
-  //   setIsUserDetailOpen((prev) => !prev);
-  // };
-
-  // // Close dropdown when clicking anywhere outside it
-  // useEffect(() => {
-  //   const handleClickOutside = (e) => {
-  //     if (userMenuRef.current && !userMenuRef.current.contains(e.target)) {
-  //       setIsUserDetailOpen(false);
-  //     }
-  //   };
-
-  //   document.addEventListener("click", handleClickOutside);
-
-  //   return () => {
-  //     document.removeEventListener("click", handleClickOutside);
-  //   };
-  // }, [setIsUserDetailOpen]);
 
   return (
     <Container>
@@ -174,9 +94,8 @@ const Navbar = () => {
               <>
                 Home
                 <hr
-                  className={`w-2/4 h-[1.5px] mx-auto bg-gray-700 ${
-                    isActive ? "block" : "hidden"
-                  }`}
+                  className={`w-2/4 h-[1.5px] mx-auto bg-gray-700 ${isActive ? "block" : "hidden"
+                    }`}
                 />
               </>
             )}
@@ -187,9 +106,8 @@ const Navbar = () => {
               <>
                 Collection
                 <hr
-                  className={`w-2/4 h-[1.5px] mx-auto bg-gray-700 ${
-                    isActive ? "block" : "hidden"
-                  }`}
+                  className={`w-2/4 h-[1.5px] mx-auto bg-gray-700 ${isActive ? "block" : "hidden"
+                    }`}
                 />
               </>
             )}
@@ -200,9 +118,8 @@ const Navbar = () => {
               <>
                 About
                 <hr
-                  className={`w-2/4 bg-gray-700 mx-auto h-[0.094rem] ${
-                    isActive ? "block" : "hidden"
-                  }`}
+                  className={`w-2/4 bg-gray-700 mx-auto h-[0.094rem] ${isActive ? "block" : "hidden"
+                    }`}
                 />
               </>
             )}
@@ -213,9 +130,8 @@ const Navbar = () => {
               <>
                 Contact
                 <hr
-                  className={`w-2/4 bg-gray-700 mx-auto h-[0.094rem] ${
-                    isActive ? "block" : "hidden"
-                  }`}
+                  className={`w-2/4 bg-gray-700 mx-auto h-[0.094rem] ${isActive ? "block" : "hidden"
+                    }`}
                 />
               </>
             )}
@@ -320,9 +236,8 @@ const Navbar = () => {
         </div>
 
         <div
-          className={`fixed bottom-0 right-0 top-0 z-50 overflow-hidden bg-white transition-all sm:hidden ${
-            isMenuOpen ? "w-full" : "w-0"
-          }`}
+          className={`fixed bottom-0 right-0 top-0 z-50 overflow-hidden bg-white transition-all sm:hidden ${isMenuOpen ? "w-full" : "w-0"
+            }`}
         >
           <div className="flex flex-col text-gray-600">
             <button
@@ -348,8 +263,7 @@ const Navbar = () => {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `border border-gray-200 py-2 pl-6 uppercase ${
-                    isActive ? "bg-black text-white" : ""
+                  `border border-gray-200 py-2 pl-6 uppercase ${isActive ? "bg-black text-white" : ""
                   }`
                 }
                 onClick={() => setIsMenuOpen(false)}
@@ -360,73 +274,6 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* <div
-          className={`fixed bottom-0 right-0 top-0 z-50 overflow-hidden bg-white transition-all sm:hidden ${
-            isMenuOpen ? "w-full" : "w-0"
-          }`}
-        >
-          <div className="flex flex-col text-gray-600">
-            <div
-              className="flex items-center cursor-pointer gap-4 p-3"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <img
-                src="/images/back-arrow.png"
-                className="rotate-180 h-4"
-                alt="back-arrow"
-              />
-              <p>Back</p>
-            </div>
-
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                `py-2 pl-6 border border-gray-200 uppercase ${
-                  isActive ? "bg-black text-white" : ""
-                }`
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Home
-            </NavLink>
-
-            <NavLink
-              to="/collection"
-              className={({ isActive }) =>
-                `py-2 pl-6 border border-gray-200 uppercase ${
-                  isActive ? "bg-black text-white" : ""
-                }`
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Collection
-            </NavLink>
-
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `py-2 pl-6 border border-gray-200 uppercase ${
-                  isActive ? "bg-black text-white" : ""
-                }`
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              About
-            </NavLink>
-
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                `py-2 pl-6 border border-gray-200 uppercase ${
-                  isActive ? "bg-black text-white" : ""
-                }`
-              }
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Contact
-            </NavLink>
-          </div>
-        </div> */}
       </div>
 
       {location.pathname !== "/collection" && <SearchItem />}

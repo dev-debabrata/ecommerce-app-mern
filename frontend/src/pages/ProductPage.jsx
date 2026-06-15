@@ -24,7 +24,6 @@ const ProductPage = () => {
 
   const { user, cartItems, addToWishlist, isInWishlist, addToCart } =
     useAppContext();
-  // const { user, addToWishlist, isInWishlist, addToCart } = useAppContext();
 
   const {
     data: product,
@@ -85,15 +84,6 @@ const ProductPage = () => {
     }
   };
 
-  // const handleAddToCart = async () => {
-  //   const success = await addToCart(product, selectedSize);
-
-  //   if (!success && !user) {
-  //     setTimeout(() => {
-  //       navigate("/signup?mode=login");
-  //     }, 500);
-  //   }
-  // };
 
   return (
     <Container>
@@ -219,16 +209,6 @@ const ProductPage = () => {
                     Asked!
                   </p>
                 </div>
-
-                {/* <div className="mt-5 text-gray-500 leading-7">
-                  <p className=" text-black font-bold text-xl  py-3">
-                    Description -
-                  </p>
-
-                  <ReactMarkdown>{product.description}</ReactMarkdown>
-                </div> */}
-
-                {/* <p className="mt-5 text-gray-500">{product.description}</p> */}
               </div>
             </div>
 
@@ -251,15 +231,6 @@ const ProductPage = () => {
 
                   <ReactMarkdown>{product.description}</ReactMarkdown>
                 </div>
-                {/* <p>
-                  Elevate your style with our meticulously crafted Trendify
-                  quality products.
-                </p>
-
-                <p>
-                  Whether you're dressing up for a special occasion or adding a
-                  touch of sophistication to your everyday look.
-                </p> */}
               </div>
             </div>
           </div>

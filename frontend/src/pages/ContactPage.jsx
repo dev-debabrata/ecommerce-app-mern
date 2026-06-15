@@ -52,9 +52,7 @@ const ContactPage = () => {
             Explore our current job openings and discover how you can contribute
             to our mission of setting trends and creating style.
           </p>
-          {/* <button className="cursor-pointer text-sm py-4 px-8 border-[0.063rem] border-black trasition-all duration-500 hover:text-white hover:bg-gray-800">
-            Explore Jobs
-          </button> */}
+
           <Button
             size="medium"
             onClick={() => navigate("/careers")}

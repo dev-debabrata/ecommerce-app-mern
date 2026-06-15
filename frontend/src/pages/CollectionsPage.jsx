@@ -148,141 +148,7 @@ const CollectionsPage = () => {
     setSearchInput("");
     setSearchParams({});
   };
-  // // const [products, setProducts] = useState([]);
-  // // const [pageLoading, setPageLoading] = useState(false);
-  // const [sortValue, setSortValue] = useState("name-asc");
-  // const [searchInput, setSearchInput] = useState("");
-  // const [showFilter, setShowFilter] = useState(false);
 
-  // const navigate = useNavigate();
-  // const [searchParams, setSearchParams] = useSearchParams();
-
-  // const {
-  //   products,
-  //   loading,
-  //   isSearchBarOpen,
-  //   setIsSearchBarOpen,
-  //   addToWishlist,
-  //   isInWishlist,
-  // } = useAppContext();
-
-  // // const [checkedBox, setCheckedBox] = useState({
-  // //   Men: false,
-  // //   Women: false,
-  // //   Kids: false,
-  // //   Topwear: false,
-  // //   Bottomwear: false,
-  // //   Winterwear: false,
-  // // });
-
-  // useEffect(() => {
-  //   const search = searchParams.get("search") || "";
-  //   setSearchInput(search);
-  // }, [searchParams]);
-
-  // const handleSearch = () => {
-  //   if (!searchInput.trim()) {
-  //     setSearchParams({});
-  //     return;
-  //   }
-
-  //   setSearchParams({ search: searchInput.trim() });
-  //   setIsSearchBarOpen(false);
-  // };
-
-  // const toggleCheckbox = (e) => {
-  //   const { name, checked } = e.target;
-
-  //   setCheckedBox((prev) => ({
-  //     ...prev,
-  //     [name]: checked,
-  //   }));
-  // };
-
-  // const handleWishlist = async (e, product) => {
-  //   e.preventDefault();
-  //   e.stopPropagation();
-
-  //   const success = await addToWishlist(product);
-
-  //   if (!success) {
-  //     setTimeout(() => {
-  //       navigate("/signup?mode=login");
-  //     }, 500);
-  //   }
-  // };
-
-  // const filteredProducts = useMemo(() => {
-  //   let result = [...products];
-
-  //   const search = searchInput.toLowerCase().trim();
-
-  //   if (search) {
-  //     result = result.filter((product) => {
-  //       return (
-  //         product.name?.toLowerCase().includes(search) ||
-  //         product.category?.toLowerCase().includes(search) ||
-  //         product.subCategory?.toLowerCase().includes(search)
-  //       );
-  //     });
-  //   }
-
-  //   const isAnyCategoryChecked = Object.values(checkedBox).some(Boolean);
-
-  //   if (isAnyCategoryChecked) {
-  //     result = result.filter((product) => {
-  //       return checkedBox[product.category] || checkedBox[product.subCategory];
-  //     });
-  //   }
-
-  //   result.sort((a, b) => {
-  //     if (sortValue === "price-asc") return a.price - b.price;
-  //     if (sortValue === "price-desc") return b.price - a.price;
-
-  //     if (sortValue === "name-asc") {
-  //       return a.name?.localeCompare(b.name) || 0;
-  //     }
-
-  //     if (sortValue === "name-desc") {
-  //       return b.name?.localeCompare(a.name) || 0;
-  //     }
-
-  //     if (sortValue === "createdAt-asc") {
-  //       return new Date(a.createdAt) - new Date(b.createdAt);
-  //     }
-
-  //     if (sortValue === "createdAt-desc") {
-  //       return new Date(b.createdAt) - new Date(a.createdAt);
-  //     }
-
-  //     return 0;
-  //   });
-
-  //   return result;
-  // }, [products, searchInput, checkedBox, sortValue]);
-
-  // const clearFilters = () => {
-  //   setCheckedBox({
-  //     Men: false,
-  //     Women: false,
-  //     Kids: false,
-  //     Topwear: false,
-  //     Bottomwear: false,
-  //     Winterwear: false,
-  //   });
-
-  //   setSearchInput("");
-  //   setSearchParams({});
-  // };
-
-  // const checkboxItems = [
-  //   "Men",
-  //   "Women",
-  //   "Kids",
-  //   "Topwear",
-  //   "Bottomwear",
-  //   "Winterwear",
-  // ];
 
   return (
     <Container>
@@ -329,17 +195,15 @@ const CollectionsPage = () => {
             FILTERS
             <img
               src="/images/back-arrow.png"
-              className={`h-3 sm:hidden transition-transform ${
-                showFilter ? "rotate-90" : ""
-              }`}
+              className={`h-3 sm:hidden transition-transform ${showFilter ? "rotate-90" : ""
+                }`}
               alt="back-arrow"
             />
           </p>
 
           <div
-            className={`border pl-5 py-3 mt-6 border-gray-300 ${
-              showFilter ? "block" : "hidden"
-            } sm:block`}
+            className={`border pl-5 py-3 mt-6 border-gray-300 ${showFilter ? "block" : "hidden"
+              } sm:block`}
           >
             <p className="font-medium mb-3 text-sm">CATEGORIES</p>
 
@@ -360,9 +224,8 @@ const CollectionsPage = () => {
 
           {/* <div className="hidden sm:block gap-2 border pl-5 py-3 my-5 mt-6 border-gray-300 text-sm"> */}
           <div
-            className={`gap-2 border pl-5 py-3 my-5 mt-6 border-gray-300 text-sm ${
-              showFilter ? "block" : "hidden"
-            } sm:block`}
+            className={`gap-2 border pl-5 py-3 my-5 mt-6 border-gray-300 text-sm ${showFilter ? "block" : "hidden"
+              } sm:block`}
           >
             <p className="font-medium mb-3 text-sm">TYPES</p>
 
