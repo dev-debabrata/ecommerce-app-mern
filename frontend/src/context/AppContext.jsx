@@ -209,6 +209,10 @@ export const AppProvider = ({ children }) => {
         products,
         fetchProducts,
 
+        productsLoading,
+        userDataLoading,
+        loading: productsLoading || userDataLoading,
+
         subTotal,
 
         isUserDetailOpen,
@@ -217,8 +221,6 @@ export const AppProvider = ({ children }) => {
         isPasswordHidden,
         setIsPasswordHidden,
         togglePassword,
-
-        loading: productsLoading || userDataLoading,
       }}
     >
       {children}

@@ -5,7 +5,7 @@ import Loading from "./Loading";
 import { useAppContext } from "../context/AppContext";
 
 const RelatedProducts = ({ productId, category, subCategory }) => {
-  const { products, loading } = useAppContext();
+  const { products, productsLoading } = useAppContext();
 
   const relatedProducts = useMemo(() => {
     if (!products?.length || !category) return [];
@@ -27,7 +27,7 @@ const RelatedProducts = ({ productId, category, subCategory }) => {
         <Title text1="RELATED" text2="PRODUCTS" />
       </div>
 
-      {loading || !products?.length ? (
+      {productsLoading ? (
         <div className="flex items-center justify-center min-h-[30vh]">
           <Loading text="Loading products..." />
         </div>
@@ -42,26 +42,6 @@ const RelatedProducts = ({ productId, category, subCategory }) => {
           ))}
         </div>
       )}
-
-      {/* {loading ? (
-        <div className="flex items-center justify-center min-h-[30vh]">
-          <Loading text="Loading products..." />
-        </div>
-      ) : relatedProducts.length === 0 ? (
-        <div className="flex items-center justify-center min-h-[30vh]">
-          <p className="text-gray-500">No related products found</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-y-6">
-          {relatedProducts.map((product) => (
-            <ProductItem
-              key={product._id}
-              {...product}
-              onClick={() => window.scrollTo(0, 0)}
-            />
-          ))}
-        </div>
-      )} */}
     </div>
   );
 };
