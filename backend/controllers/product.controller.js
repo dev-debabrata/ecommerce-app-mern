@@ -108,7 +108,6 @@ export const updateProduct = async (req, res) => {
       return res.status(404).json({ message: "No product found" });
     }
 
-    // Start with existing images, replace slots that have new uploads
     const images = [...(existingProduct.image || [])];
 
     const fileSlots = [

@@ -53,78 +53,6 @@ export const signupUser = async (req, res) => {
   }
 };
 
-// export const signupUser = async (req, res) => {
-//   try {
-//     const { name, email, password } = req.body;
-
-//     if (!name || !email || !password) {
-//       return res.status(400).json({ message: "All fields are required" });
-//     }
-
-//     const existingUser = await User.findOne({ email });
-
-//     if (existingUser) {
-//       return res.status(403).json({ message: "User already exists" });
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const user = await User.create({
-//       name,
-//       email,
-//       password: hashedPassword,
-//     });
-
-//     const token = generateToken(user._id);
-
-//     res.status(201).json({
-//       message: "User created successfully",
-//       token,
-//       user: {
-//         id: user._id,
-//         name: user.name,
-//         email: user.email,
-//       },
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
-
-// export const signupUser = async (req, res) => {
-//   try {
-//     const { name, email, password } = req.body;
-
-//     if (!name || !email || !password) {
-//       return res.status(400).json({ message: "All fields are required" });
-//     }
-
-//     const existingUser = await User.findOne({ email });
-
-//     if (existingUser) {
-//       return res.status(403).json({ message: "User already exists" });
-//     }
-
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     const user = await User.create({
-//       name,
-//       email,
-//       password: hashedPassword,
-//     });
-
-//     res.status(201).json({
-//       message: "User created successfully",
-//       user: {
-//         id: user._id,
-//         name: user.name,
-//         email: user.email,
-//       },
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
 
 export const loginUser = async (req, res) => {
   try {
@@ -189,9 +117,8 @@ export const forgotPassword = async (req, res) => {
     user.resetToken = await bcrypt.hash(resetToken, 10);
     await user.save();
 
-    const resetLink = `${
-      process.env.CLIENT_URL || "http://localhost:5173"
-    }/reset-password/${resetToken}`;
+    const resetLink = `${process.env.CLIENT_URL || "http://localhost:5173"
+      }/reset-password/${resetToken}`;
 
     await sendResetPasswordMail(user.email, resetLink);
 
@@ -204,39 +131,6 @@ export const forgotPassword = async (req, res) => {
   }
 };
 
-// export const forgotPassword = async (req, res) => {
-//   try {
-//     const { email } = req.body;
-
-//     const user = await User.findOne({ email });
-
-//     if (!user) {
-//       return res.status(400).json({ message: "No user with that email" });
-//     }
-
-//     const resetToken = generateToken(user._id, "1h");
-
-//     user.resetToken = await bcrypt.hash(resetToken, 10);
-//     await user.save();
-
-//     const resetLink = `${
-//       process.env.CLIENT_URL || "http://localhost:5173"
-//     }/reset-password/${resetToken}`;
-
-//     await sendResetPasswordMail.sendMail({
-//       from: process.env.MAIL_FROM,
-//       to: user.email,
-//       subject: "Password reset request",
-//       html: `<p>Click <a href="${resetLink}">here</a> to reset your password</p>`,
-//     });
-
-//     res.status(200).json({
-//       message: "Password reset email sent successfully",
-//     });
-//   } catch (error) {
-//     res.status(500).json({ message: "Server error", error: error.message });
-//   }
-// };
 
 export const resetPassword = async (req, res) => {
   try {
