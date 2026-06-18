@@ -2,7 +2,7 @@
 
 ShopWear is a full-stack MERN E-Commerce application that provides a seamless online shopping experience for customers and a powerful admin dashboard for store management. The platform supports product management, secure authentication, shopping cart functionality, order processing, and image uploads through Cloudinary.
 
-## 🚀 Live Demo
+<!-- ## 🚀 Live Demo
 
 ### Customer Website
 
@@ -10,7 +10,7 @@ https://your-frontend-url.com
 
 ### Admin Dashboard
 
-https://your-admin-url.com
+https://your-admin-url.com -->
 
 ## 📸 Screenshots
 
