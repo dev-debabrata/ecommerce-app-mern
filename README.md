@@ -15,6 +15,30 @@ To develop a modern and scalable e-commerce platform that enables customers to b
 
 ---
 
+## 📸 Screenshots
+
+### Home Page
+
+![Home Page](./screenshots/home.png)
+
+### Collections Page
+
+![Collections Page](./screenshots/collections.png)
+
+### Product Details Page
+
+![Product Details](./screenshots/product-details.png)
+
+### Shopping Cart
+
+![Shopping Cart](./screenshots/cart.png)
+
+### Admin Dashboard
+
+![Admin Dashboard](./screenshots/admin-dashboard.png)
+
+---
+
 ## 🚀 Features
 
 ### 👤 User Features
