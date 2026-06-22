@@ -70,7 +70,7 @@ const Login = ({ setToken }) => {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black shadow-md disabled:opacity-70"
+            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black hover:bg-gray-800 shadow-md disabled:opacity-70 cursor-pointer"
           >
             {loading ? "Logging in..." : "Login"}
           </button>

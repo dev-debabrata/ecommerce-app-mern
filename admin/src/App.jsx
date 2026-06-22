@@ -38,7 +38,8 @@ const App = () => {
           <div className="flex w-full gap-10 h-[calc(100vh-73px)] overflow-hidden">
             <Sidebar />
 
-            <div className="py-5 w-full overflow-y-auto pr-4">
+            {/* <div className="py-5 w-full overflow-y-auto pr-4"> */}
+            <div className="py-5 w-full min-w-0 overflow-y-auto pr-4">
               <Routes>
                 <Route path="/" element={<Navigate to="/list" replace />} />
                 <Route path="/add" element={<Add token={token} />} />
